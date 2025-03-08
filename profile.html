@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>我的</title>
+        <script src="jq.js"></script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <h1 style="text-align: center">我的</h1>
+        <p style="text-align: center">个人中心</p>
+        <p style="text-align: center">送你2025年寄语：</p>
+        <h1 style="text-align: center">别寄</h1>
+
+        <div class="bottom-nav">
+            <div class="nav-item" data-target="index.html">
+                <span>🏠 首页</span>
+            </div>
+            <div class="nav-item" data-target="explore.html">
+                <span>🔍 探索</span>
+            </div>
+            <div class="nav-item active" data-target="profile.html">
+                <span>👤 我的</span>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $(".nav-item").click(function () {
+                    window.location.href = $(this).data("target");
+                });
+            });
+        </script>
+    </body>
+</html>

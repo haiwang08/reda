@@ -1,0 +1,199 @@
+html,
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    flex-direction: column;
+}
+.head {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 4vh;
+    background: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    position: fixed;
+    top: 6%;
+    left: 0;
+    width: 100%;
+    background-color: #f2e6e6;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+#block-list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 13px;
+}
+.block-item {
+    width: calc(50% - 5px);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.block-title {
+    position: relative;
+    top: 18%;
+}
+/* 垂直 */
+@media (orientation: portrait) {
+    .bottom-nav {
+        height: 5%;
+        font-size: 2vh;
+    }
+    .content {
+        height: 89%;
+    }
+}
+/* 水平 */
+@media (orientation: landscape) {
+    .bottom-nav {
+        height: 6%;
+        font-size: 3vh;
+    }
+    .content {
+        height: 88%;
+    }
+    .block-item {
+        width: calc(25% - 15px);
+    }
+}
+.nav-item {
+    text-align: center;
+    cursor: pointer;
+    flex: 1;
+}
+.nav-item span {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+}
+.nav-item.active span {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* 视频窗口 */
+video {
+    width: 0;
+    height: 0;
+    display: block;
+}
+
+/* 字幕容器 */
+.subtitle-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 65%;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    cursor: grab;
+    resize: both;
+    overflow: auto;
+}
+
+/* 高亮当前播放的字幕 */
+.highlight {
+    color: #ff0;
+    font-weight: bold;
+}
+
+/* 显示行 */
+.subLine {
+    height: 40px;
+    width: 99%;
+    border-top: 8px;
+    display: flex;
+    cursor: pointer;
+}
+/* 复读按钮样式 */
+.repeatButton {
+    width: 5%;
+    height: 100%;
+}
+/* 字幕行样式 */
+.subtitle {
+    width: 93%;
+    height: 100%;
+    line-height: 20px;
+    font-size: 16px;
+}
+
+.questionNum-list {
+    position: fixed;
+    display: flow;
+    height: 35%;
+    top: 2%;
+}
+.questionNum-list button {
+    height: 3rem;
+    width: 3rem;
+    margin-right: 10px;
+}
+
+.questionNum-list label {
+    width: 3rem;
+}
+.questionNum-list > div {
+    margin-bottom: 3px;
+}
+
+#subtitleBox {
+    height: 65%;
+    width: 100%;
+    top: 35%;
+    position: fixed;
+}
+#subtitleContainer {
+    height: 100%;
+    width: 100%;
+}

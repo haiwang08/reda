@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>字幕滚动</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <video id="video" controls autoplay display="none">
+            <source src="JLPT/video/201007.mp4" type="video/mp4" />
+        </video>
+
+        <div class="questionNum-list">
+            <!-- <div>
+                <label>1</label>
+                <button>1</button><button>2</button><button>3</button
+                ><button>4</button><button>5</button>
+            </div>
+            <div>
+                <label>2</label>
+                <button>1</button><button>2</button><button>3</button
+                ><button>4</button><button>5</button><button>6</button>
+            </div>
+            <div>
+                <label>3</label>
+                <button>1</button><button>2</button><button>3</button
+                ><button>4</button><button>5</button>
+            </div>
+            <div>
+                <label>4</label>
+                <button>1</button><button>2</button><button>3</button
+                ><button>4</button><button>5</button><button>6</button>
+            </div>
+            <div>
+                <label>4</label>
+                <button>7</button><button>8</button><button>9</button
+                ><button>10</button><button>11</button><button>12</button>
+            </div>
+            <div>
+                <label>5</label>
+                <button>1</button><button>2</button><button>3</button>
+            </div> -->
+        </div>
+
+        <!-- 引入 jQuery 库 -->
+        <script src="jq.js"></script>
+        <script src="PandaShadowing.1.0.js"></script>
+        <script src="JLPT/subtitle/201007.js"></script>
+        <script>
+            function ss(s) {
+                console.log(s);
+            }
+
+            $(document).ready(function () {
+                const $video = $("#video");
+
+                let pandaShadowing = new PandaShadowing(
+                    "video",
+                    subtitles.data
+                );
+                pandaShadowing.renderSubtitles();
+
+                let questionList = {
+                    1: [87.97, 176.03, 274.29, 357.48, 437.01],
+                    2: [546.69, 651.31, 753.45, 855.06, 952.57, 1046.77],
+                    3: [1228.24, 1309.76, 1405.041, 1472.54, 1587.03],
+                    4: [
+                        1701.8, 1735.19, 1766.96, 1800.418, 1831.418, 1866.807,
+                        1897.83, 1931.66, 1964.18, 1997.58, 2030.11, 2062.64,
+                    ],
+                    5: [2129.51, 2254.128, 2390.47],
+                };
+
+                let quesList = $(".questionNum-list");
+                for (let key in questionList) {
+                    let quesListDiv = $("<div></div>");
+                    quesListDiv.append($("<label>" + key + "</label>"));
+                    questionList[key].forEach((e, i) => {
+                        let button = $("<button>" + (i + 1) + "</button>");
+                        button.click(() => {
+                            pandaShadowing.playAt(e);
+                        });
+                        quesListDiv.append(button);
+                    });
+                    quesList.append(quesListDiv);
+                }
+            });
+        </script>
+    </body>
+</html>
