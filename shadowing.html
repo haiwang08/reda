@@ -11,8 +11,13 @@
             <source src="JLPT/video/201007.mp4" type="video/mp4" />
         </video>
 
-        <div class="questionNum-list">
-            <!-- <div>
+        <div class="questionNum-list"></div>
+
+        <div class="menu-list">
+            <button class="menuButton" id="goBack">返回</button>
+            <button class="menuButton" id="repeatSen">复读</button>
+        </div>
+        <!-- <div>
                 <label>1</label>
                 <button>1</button><button>2</button><button>3</button
                 ><button>4</button><button>5</button>
@@ -41,8 +46,6 @@
                 <label>5</label>
                 <button>1</button><button>2</button><button>3</button>
             </div> -->
-        </div>
-
         <!-- 引入 jQuery 库 -->
         <script src="jq.js"></script>
         <script src="PandaShadowing.1.0.js"></script>
@@ -65,19 +68,30 @@
                     1: [87.97, 176.03, 274.29, 357.48, 437.01],
                     2: [546.69, 651.31, 753.45, 855.06, 952.57, 1046.77],
                     3: [1228.24, 1309.76, 1405.041, 1472.54, 1587.03],
-                    4: [
-                        1701.8, 1735.19, 1766.96, 1800.418, 1831.418, 1866.807,
-                        1897.83, 1931.66, 1964.18, 1997.58, 2030.11, 2062.64,
-                    ],
-                    5: [2129.51, 2254.128, 2390.47],
+                    4: [1701.8, 1735.19, 1766.96, 1800.418, 1831.418, 1866.807],
+                    5: [1897.83, 1931.66, 1964.18, 1997.58, 2030.11, 2062.64],
+                    6: [2129.51, 2254.128, 2390.47],
                 };
+                let numList = ["一", "二", "三", "四a", "四b", "五"];
 
                 let quesList = $(".questionNum-list");
                 for (let key in questionList) {
-                    let quesListDiv = $("<div></div>");
-                    quesListDiv.append($("<label>" + key + "</label>"));
+                    let quesListDiv = $("<div class='buttonBox'></div>");
+                    let headButton = $(
+                        "<button>" +
+                            numList[key - 1] +
+                            "</button><span>：</span>"
+                    );
+                    headButton.click(() => {
+                        pandaShadowing.playAt(questionList[key][0]);
+                    });
+                    quesListDiv.append(headButton);
                     questionList[key].forEach((e, i) => {
-                        let button = $("<button>" + (i + 1) + "</button>");
+                        let button = $(
+                            "<button>" +
+                                (key == 5 ? i + 7 : i + 1) +
+                                "</button>"
+                        );
                         button.click(() => {
                             pandaShadowing.playAt(e);
                         });
@@ -85,6 +99,14 @@
                     });
                     quesList.append(quesListDiv);
                 }
+
+                $("#goBack").click(function () {
+                    window.location.href = "index.html";
+                });
+
+                $("#repeatSen").click(function () {
+                    pandaShadowing.repeat();
+                });
             });
         </script>
     </body>

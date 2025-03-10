@@ -209,4 +209,8 @@ class PandaShadowing {
             idx = this.currentIdx;
         }
     }
+
+    repeat() {
+        this.repeatSentenceSwitch(this.currentIdx);
+    }
 }
