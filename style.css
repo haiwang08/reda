@@ -154,10 +154,19 @@ video {
 /* 显示行 */
 .subLine {
     height: 40px;
-    width: 99%;
+    width: 100%;
     border-top: 8px;
     display: flex;
     cursor: pointer;
+}
+/* 复读按钮样式 */
+.adButton {
+    width: 5%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: 0;
 }
 /* 复读按钮样式 */
 .repeatButton {

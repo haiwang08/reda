@@ -16,6 +16,7 @@
         <div class="menu-list">
             <button class="menuButton" id="goBack">返回</button>
             <button class="menuButton" id="repeatSen">复读</button>
+            <button class="menuButton" id="saveButton">保存</button>
         </div>
         <!-- <div>
                 <label>1</label>
@@ -67,7 +68,7 @@
                 let questionList = {
                     1: [87.97, 176.03, 274.29, 357.48, 437.01],
                     2: [546.69, 651.31, 753.45, 855.06, 952.57, 1046.77],
-                    3: [1228.24, 1309.76, 1405.041, 1472.54, 1587.03],
+                    3: [1228.24, 1309.76, 1405.041, 1488, 1587.03],
                     4: [1701.8, 1735.19, 1766.96, 1800.418, 1831.418, 1866.807],
                     5: [1897.83, 1931.66, 1964.18, 1997.58, 2030.11, 2062.64],
                     6: [2129.51, 2254.128, 2390.47],
@@ -106,6 +107,20 @@
 
                 $("#repeatSen").click(function () {
                     pandaShadowing.repeat();
+                });
+
+                $("#saveButton").click(function () {
+                    const blob = new Blob(
+                        [JSON.stringify(pandaShadowing.subtitles)],
+                        {
+                            type: "application/json",
+                        }
+                    );
+                    const link = $("<a>")
+                        .attr("href", URL.createObjectURL(blob))
+                        .attr("download", "output201007_modified.json")
+                        .get(0);
+                    link.click();
                 });
             });
         </script>

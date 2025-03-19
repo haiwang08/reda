@@ -31,6 +31,8 @@ class PandaShadowing {
             this.ss(this.currentIdx);
             if (e.key === "f" || e.key === "ArrowLeft") {
                 this.repeatSentenceSwitch(this.currentIdx);
+            } else if (e.key === "ArrowRight") {
+                this.playAt(this.subtitles[this.currentIdx].st);
             } else if (e.key === "ArrowDown") {
                 if (this.isRepeating) {
                     this.repeatSentenceSwitch(this.currentIdx + 1);
@@ -125,6 +127,23 @@ class PandaShadowing {
         }
     }
 
+    createAdButton(time, tag, index, onClickHandler) {
+        return $("<button>")
+            .text(time)
+            .addClass("adButton")
+            .click(() => {
+                const currentScrollPosition =
+                    this.subtitleContainer.scrollTop();
+                if (tag == 1) {
+                    this.subtitles[index].st += time;
+                    this.playAt(this.subtitles[index].st);
+                } else {
+                    this.subtitles[index].et += time;
+                    this.playAt(this.subtitles[index].et);
+                }
+            });
+    }
+
     // 创建字幕行元素
     renderSubtitles() {
         this.subtitleContainer.empty();
@@ -143,8 +162,23 @@ class PandaShadowing {
                     this.repeatSentenceSwitch(index);
                 });
             let subLine = $("<div>").addClass("subLine");
+
+            const adButtons1 = [
+                this.createAdButton(-0.2, 1, index),
+                this.createAdButton(-0.1, 1, index),
+                this.createAdButton(0.2, 1, index),
+                this.createAdButton(0.1, 1, index),
+            ];
+            const adButtons2 = [
+                this.createAdButton(-0.2, 2, index),
+                this.createAdButton(-0.1, 2, index),
+                this.createAdButton(0.1, 2, index),
+                this.createAdButton(0.2, 2, index),
+            ];
+            adButtons1.forEach((button) => subLine.append(button));
             subLine.append(repeatButton);
             subLine.append(subtitleDiv);
+            adButtons2.forEach((button) => subLine.append(button));
             this.subtitleContainer.append(subLine);
         });
     }
@@ -197,7 +231,7 @@ class PandaShadowing {
             this.isRepeating = true;
             const subtitleElements = this.subtitleContainer.children();
             //subtitleElements[idx].children
-            subtitleElements[idx].firstChild.textContent = "⭕";
+            subtitleElements[idx].children[4].textContent = "⭕";
             this.playAt(this.subtitles[idx].st);
         } else {
             $(".repeatButton").text("●");
