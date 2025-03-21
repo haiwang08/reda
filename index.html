@@ -36,12 +36,16 @@
 
             let jsonData = [
                 {
-                    title: "2010年7月",
-                    description: "201007",
+                    title: "2010年7月N2",
+                    vNumber: "N2201007",
+                    type: "N2",
+                    description: "N2201007",
                     image: "img/jlpt.jpg",
                 },
                 {
-                    title: "2010年12月",
+                    title: "2024年7月N3",
+                    vNumber: "N3202407",
+                    type: "N3",
                     description: "This is the description for item 2.",
                     image: "https://via.placeholder.com/150",
                 },
@@ -81,7 +85,10 @@
                 block.click(() => {
                     console.log(111);
                     window.location.href =
-                        "shadowing.html?idx=" + item.description;
+                        "shadowing.html?vNumber=" +
+                        item.vNumber +
+                        "&type=" +
+                        item.type;
                 });
 
                 // 将块添加到容器中

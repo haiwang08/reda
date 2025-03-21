@@ -5,7 +5,7 @@
 class PandaShadowing {
     //
 
-    constructor(vSelector, subtitles, offset) {
+    constructor(vSelector, subtitles, offset, env) {
         this.v = vSelector ? $(vSelector)[0] : $(video)[0];
         this.defaultRepeatSt = -1;
         this.defaultRepeatEt = 0;
@@ -19,6 +19,7 @@ class PandaShadowing {
         this.isSeeking = false;
         this.subtitles = subtitles;
         this.offset = offset ? offset : 0;
+        this.env = env;
 
         // 拖动字幕容器
         this.isDragging = false;
@@ -145,7 +146,7 @@ class PandaShadowing {
     }
 
     // 创建字幕行元素
-    renderSubtitles() {
+    render() {
         this.subtitleContainer.empty();
         this.subtitles.forEach((subtitle, index) => {
             const subtitleDiv = $("<div>")
@@ -163,18 +164,22 @@ class PandaShadowing {
                 });
             let subLine = $("<div>").addClass("subLine");
 
-            const adButtons1 = [
-                this.createAdButton(-0.2, 1, index),
-                this.createAdButton(-0.1, 1, index),
-                this.createAdButton(0.2, 1, index),
-                this.createAdButton(0.1, 1, index),
-            ];
-            const adButtons2 = [
-                this.createAdButton(-0.2, 2, index),
-                this.createAdButton(-0.1, 2, index),
-                this.createAdButton(0.1, 2, index),
-                this.createAdButton(0.2, 2, index),
-            ];
+            let adButtons1 = [];
+            let adButtons2 = [];
+            if (this.env == "dev") {
+                adButtons1 = [
+                    this.createAdButton(-0.2, 1, index),
+                    this.createAdButton(-0.1, 1, index),
+                    this.createAdButton(0.2, 1, index),
+                    this.createAdButton(0.1, 1, index),
+                ];
+                adButtons2 = [
+                    this.createAdButton(-0.2, 2, index),
+                    this.createAdButton(-0.1, 2, index),
+                    this.createAdButton(0.1, 2, index),
+                    this.createAdButton(0.2, 2, index),
+                ];
+            }
             adButtons1.forEach((button) => subLine.append(button));
             subLine.append(repeatButton);
             subLine.append(subtitleDiv);
