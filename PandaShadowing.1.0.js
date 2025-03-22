@@ -95,9 +95,8 @@ class PandaShadowing {
         this.v.addEventListener("timeupdate", (e) => {
             if (this.isRepeating) {
                 if (e.target.currentTime >= this.repeatEt) {
-                    this.v.currentTime = this.repeatSt;
+                    this.playAt(this.repeatSt);
                 }
-                this.v.play();
             }
             if (!this.isSeeking) {
                 this.updateSubtitles(222222222222);
@@ -152,7 +151,7 @@ class PandaShadowing {
             const subtitleDiv = $("<div>")
                 .addClass("subtitle")
                 .text(subtitle.text)
-                .attr("data-st", subtitle.st + this.offset)
+                .attr("data-st", subtitle.st)
                 .click(() => {
                     this.playAt(subtitle.st);
                 });
@@ -231,8 +230,8 @@ class PandaShadowing {
             this.repeatSentenceSwitch(idx);
         } else if (!this.isRepeating) {
             $(".repeatButton").text("●");
-            this.repeatSt = this.subtitles[idx].st + this.offset;
-            this.repeatEt = this.subtitles[idx].et + this.offset;
+            this.repeatSt = this.subtitles[idx].st;
+            this.repeatEt = this.subtitles[idx].et;
             this.isRepeating = true;
             const subtitleElements = this.subtitleContainer.children();
             //subtitleElements[idx].children
