@@ -20,6 +20,7 @@ class PandaShadowing {
         this.subtitles = subtitles;
         this.offset = offset ? offset : 0;
         this.env = env;
+        this.pinned = false;
 
         // 拖动字幕容器
         this.isDragging = false;
@@ -192,28 +193,30 @@ class PandaShadowing {
     }
 
     updateSubtitles(n) {
-        const currentTime = this.v.currentTime;
-        const newIndex = this.subtitles.findIndex(
-            (sub, idx) =>
-                currentTime >= sub.st &&
-                currentTime <= sub.et &&
-                (idx === this.subtitles.length - 1 ||
-                    currentTime <= this.subtitles[idx + 1].st)
-        );
+        if (!this.pinned) {
+            const currentTime = this.v.currentTime;
+            const newIndex = this.subtitles.findIndex(
+                (sub, idx) =>
+                    currentTime >= sub.st &&
+                    currentTime <= sub.et &&
+                    (idx === this.subtitles.length - 1 ||
+                        currentTime <= this.subtitles[idx + 1].st)
+            );
 
-        if (newIndex !== -1 && newIndex !== this.currentIdx) {
-            this.currentIdx = newIndex;
-            const subtitleElements = this.subtitleContainer.children();
+            if (newIndex !== -1 && newIndex !== this.currentIdx) {
+                this.currentIdx = newIndex;
+                const subtitleElements = this.subtitleContainer.children();
 
-            // 滚动至当前字幕，增亮当前播放字幕
-            subtitleElements.each((idx, el) => {
-                $(el)
-                    .toggleClass("highlight", idx === this.currentIdx)
-                    .css("opacity", idx === this.currentIdx ? "1" : "0.5");
-            });
+                // 滚动至当前字幕，增亮当前播放字幕
+                subtitleElements.each((idx, el) => {
+                    $(el)
+                        .toggleClass("highlight", idx === this.currentIdx)
+                        .css("opacity", idx === this.currentIdx ? "1" : "0.5");
+                });
 
-            // 将当前字幕居中
-            this.scrollToSubtitle(this.currentIdx);
+                // 将当前字幕居中
+                this.scrollToSubtitle(this.currentIdx);
+            }
         }
     }
 
@@ -250,5 +253,16 @@ class PandaShadowing {
 
     repeat() {
         this.repeatSentenceSwitch(this.currentIdx);
+    }
+
+    msg(code, msg) {
+        return { code: code, msg: msg };
+    }
+
+    pin() {
+        this.pinned = !this.pinned;
+        return this.pinned
+            ? this.msg("0000", "锁定成功")
+            : this.msg("0001", "解锁成功");
     }
 }

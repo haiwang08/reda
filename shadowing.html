@@ -17,6 +17,7 @@
             <button class="menuButton" id="goBack">返回</button>
             <button class="menuButton" id="repeatSen">复读</button>
             <button class="menuButton" id="saveButton">保存</button>
+            <button class="menuButton" id="pinButton">锁定</button>
         </div>
         <!-- <div>
                 <label>1</label>
@@ -180,6 +181,25 @@
                         .attr("download", "output201007_modified.json")
                         .get(0);
                     link.click();
+                });
+
+                $("#pinButton").click((obj) => {
+                    // 锁定
+                    let res = pandaShadowing.pin();
+                    ss(res);
+                    if (res.code == "0000") {
+                        $("#pinButton").text("已锁定");
+                        $("#pinButton").css("color", "red");
+                    } else if (res.code == "0001") {
+                        $("#pinButton").text("锁定");
+                        $("#pinButton").css("color", "black");
+                    }
+                });
+                $(document).on("keydown", function (e) {
+                    if (e.ctrlKey && e.key.toLowerCase() === "d") {
+                        e.preventDefault(); // 阻止默认行为（可选）
+                        $("#pinButton").click();
+                    }
                 });
             });
         </script>
